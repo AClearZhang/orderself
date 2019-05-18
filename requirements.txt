@@ -1,0 +1,17 @@
+flask
+flask-sqlalchemy
+mysqlclient
+flask_script
+
+
+
+flask-sqlacodegen 'mysql://root:@127.0.0.1/food_db' --outfile "common/models/model.py"  --flask
+
+flask-sqlacodegen 'mysql://root:@127.0.0.1/food_db' --tables user --outfile "common/models/User.py"  --flask
+----
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables pay_order --outfile "common/models/pay/PayOrder.py"  --flask
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables pay_order_item --outfile "common/models/pay/PayOrderItem.py"  --flask
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables pay_table --outfile "common/models/pay/PayTable.py"  --flask
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables stat_daily_food --outfile "common/models/stat/StatDailyFood.py"  --flask
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables stat_daily_member --outfile "common/models/stat/StatDailyMember.py"  --flask
+flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables stat_daily_site --outfile "common/models/stat/StatDailySite.py"  --flask

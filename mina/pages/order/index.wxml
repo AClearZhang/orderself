@@ -1,0 +1,103 @@
+<view class="container">
+     <view class="address-box">
+        <view class="add-address" hidden="{{default_address}}">
+            <view class="title" bindtap="addressSet">新增收货地址</view>
+        </view>
+        <view class="show-address" hidden="{{!default_address}}" bindtap="selectAddress">
+            <view class="name-tel">{{default_address.name}}  {{default_address.mobile}}</view>
+            <view class="addr-text">{{default_address.address}}</view>
+        </view>
+     </view>
+     <view class="goods-list">
+        <view class="list-title">商品列表</view>
+        <view class="a-goods" wx:for-items="{{goods_list}}" wx:key="{{index}}">
+            <view class="img-box">
+                <image src="{{item.pic_url}}" class="img" />
+            </view>
+            <view class="text-box">
+                <view class="arow arow01">
+                    <view class="goods-name">{{item.name}}</view>
+                    <view class="goods-price">¥ {{item.price}}</view>
+                </view>
+                <view class="arow">
+                    <view class="goods-label"></view>
+                    <view class="goods-num">x {{item.number}}</view>
+                </view>
+            </view>
+        </view>
+     </view>
+     <view class="peisong-way">
+        <view class="row-box">
+            <view class="row-label">配送方式</view>
+            <view class="right-text">
+                <button class="btn-dd {{curMethod == '0' ? 'active' : ''}} " data-index="0" bindtap="changeEatMethod">到店</button>
+                <button class="btn-kd {{curMethod == '1' ? 'active' : ''}} " data-index="1" bindtap="changeEatMethod" wx:if="{{ yun_price > 0 }}">快递</button>
+                <button class="btn-kd {{curMethod == '1' ? 'active' : ''}} " data-index="1" bindtap="changeEatMethod" wx:if="{{ yun_price == 0 }}">免邮</button>
+            </view>
+        </view>
+        <view class="row-box">
+            <view class="row-label">备注</view>
+            <view class="right-text">
+                <input name="note" type="text" class="liuyan" placeholder="如需备注请输入" bindinput="getNote" />
+            </view>
+        </view>
+     </view>
+
+     <view class="goods-info">
+        <view class="row-box">
+            <view class="row-label">商品金额</view>
+            <view class="right-text">¥ {{pay_price}}</view>
+        </view>
+        <view class="row-box">
+            <view class="row-label">运费</view>
+            <view class="right-text">+ ¥ {{yun_price}}</view>
+        </view>
+     </view>
+        <!--输入用餐人数  -->
+    <!-- <view class="fenxi"></view>
+    <input class="guest_numInput bc_white" focus="{{diner_numF}}" placeholder="请输入用餐人数" type="number" wx:if="{{diner_num > 0 }}"  value="{{diner_num}}" bindinput="getDinerNum" />
+    <input class="guest_numInput bc_white" focus="{{diner_numF}}" placeholder="请输入用餐人数" type="number" wx:else  bindinput="getDinerNum" />
+    <view class="guest_numBox">
+        <view class="weui-flex">
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="1" bindtap="getDinnerNUM">1</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="2" bindtap="getDinnerNUM">2</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="3" bindtap="getDinnerNUM">3</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="4" bindtap="getDinnerNUM">4</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="5" bindtap="getDinnerNUM">5</view>
+        </view>
+        </view>
+        <view class="weui-flex weui-flex-bottom">
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="6" bindtap="getDinnerNUM">6</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="7" bindtap="getDinnerNUM">7</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="8" bindtap="getDinnerNUM">8</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="9" bindtap="getDinnerNUM">9</view>
+        </view>
+        <view class="weui-flex__item">
+            <view class="guest_num_choose" data-num="0" bindtap="getDinnerNUM">输</view>
+        </view>
+        </view>
+    </view> -->
+    <!-- 用餐人数结束 -->
+     <view class="jiesuan-box">
+        <view class="left-price">
+            <view class="total">合计：¥ {{total_price}}</view>
+        </view>
+        <button class="to-pay-btn" bindtap="createOrder">提交订单</button>
+    </view>
+</view>

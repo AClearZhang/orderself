@@ -1,0 +1,45 @@
+
+/**map.wxss**/
+/* 不加page无法全屏 */ 
+page {
+  height: 100%;
+}
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+map {
+  width: 100%;
+  height: 100%;
+  background-color: #F9B902;
+}
+
+.btn-container {
+  /* position:fixed; */
+  /* right:0;
+  bottom: 0; */
+  /* z-index:500; */
+  width: auto;
+  height: 360rpx;
+  display: flex;
+  flex-direction: column;
+  position:fixed;
+  bottom:0;
+  right:0;
+}
+
+.btn-item {
+  width: auto;
+  height: 70rpx;
+  margin-right: 0rpx;
+  font-size: 28rpx;
+  align-items: center;
+  border-top-left-radius: 0rpx;
+  border-bottom-left-radius: 0rpx;
+  border-radius: 50%;
+  background-color:#F9B902;
+  color:#000;
+  border:none;
+  /* position: relative; */
+}

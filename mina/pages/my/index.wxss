@@ -1,0 +1,103 @@
+.container {
+  min-height: 100%;
+  background: #666;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  padding: 50rpx 0;
+  align-items: center;
+  background: #fff;
+  width: 750rpx;
+}
+
+.box-shadow {
+  display: inline-block;
+  box-shadow: 4px 4px 7px #666;  
+  width: 255rpx;
+  height: 255rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-avatar {
+  position: static;
+  vertical-align: top;
+  z-index: -1;
+  width: 255rpx;
+  height: 255rpx;
+  border-radius: 50%;
+  /* margin: 20rpx; */
+}
+
+.userinfo-info {
+  display: inline-flex;
+
+}
+
+.userinfo-nickname {
+  margin-top: 20rpx;
+  color: #000;
+}
+
+.userinfo-info > .wenan1 {
+  font-size: 66rpx;
+  color: #0091fe;
+  margin: 7rpx 0 0 9rpx;
+}
+
+.userinfo-info > .wenv {
+  font-size: 66rpx;
+  color: #fe4d93;
+  margin: 7rpx 0 0 9rpx;
+}
+
+.version {
+  width: 100%;
+  height: 40rpx;
+  background: #fff;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  text-align: center;
+  padding: 40rpx;
+  
+}
+
+.my-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: #fff;
+  margin: 0;
+  border-bottom: 1px solid #eee;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding-left: 100rpx;
+}
+
+.my-item > text {
+  display: inline-flex;
+  width: auto;
+  line-height: 100rpx;
+  height: 100rpx;
+}
+
+.left-img {
+  line-height: 100rpx;
+  width: 60rpx;
+  height: 100rpx;
+  font-size: 56rpx;
+  padding-right: 13rpx;
+  color: #F9B902;
+}
+
+.right-img{
+  line-height: 100rpx;
+  width: 60rpx;
+  height: 100rpx;
+  padding-right: 45rpx;
+  font-size: 42rpx;
+}

@@ -1,0 +1,66 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/food/map",
+    "pages/cart/index",
+    "pages/food/index",
+    "pages/menu/index",
+    "pages/food/info",
+    "pages/my/index",
+    "pages/my/order_list",
+    "pages/my/order_info",
+    "pages/my/addressList",
+    "pages/my/addressSet",
+    "pages/my/commentList",
+    "pages/my/comment",
+    "pages/order/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFF00",
+    "navigationBarTitleText": "少年心气",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+
+  },
+  "tabBar": {
+    "color": "#6e6d6b",
+    "selectedColor": "#e64340",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "box-shadow": "0 0 6px 0",
+    "list": [
+      {
+        "pagePath": "pages/food/index",
+        "iconPath": "images/nav/home-off.png",
+        "selectedIconPath": "images/nav/home-on.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/menu/index",
+        "iconPath": "images/nav/menu-off.png",
+        "selectedIconPath": "images/nav/menu-on.png",
+        "text": "菜单"
+      },
+      {
+        "pagePath": "pages/cart/index",
+        "iconPath": "images/nav/cart-off.png",
+        "selectedIconPath": "images/nav/cart-on.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "images/nav/my-off.png",
+        "selectedIconPath": "images/nav/my-on.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于查询店铺位置,不会做其他用途."
+    }
+  }
+}

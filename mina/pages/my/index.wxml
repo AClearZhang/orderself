@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="userinfo">
+    <view class="box-shadow">
+      <image wx:if="{{user_info && user_info.avatar_url}}" class="userinfo-avatar" src="{{ user_info.avatar_url }}" background-size="cover"></image>
+    </view>
+    <view class="userinfo-info">
+      <text class="userinfo-nickname">{{ user_info.nickname }}</text>
+      <i class="iconfont wenan1" wx:if="{{ user_info.sex == '1' }}" />
+      <i class="iconfont wenv" wx:if="{{ user_info.sex == '0' }}" />
+    </view>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <navigator url="/pages/my/order_list" hover-class="navigator-hover" class="my-item">
+    <view style="display:inline-flex;">
+      <image class="iconfont wedingdan left-img" />
+      <text>我的订单</text>
+    </view>
+    <image class="iconfont wemore right-img" />
+  </navigator>
+  <navigator url="/pages/my/addressList" hover-class="navigator-hover" class="my-item">
+    <view style="display:inline-flex;">
+      <image class="iconfont wedizhi left-img" />
+      <text>我的收货地址</text>
+    </view>
+    <image class="iconfont wemore right-img" />
+  </navigator>
+  <navigator url="/pages/my/commentList" hover-class="navigator-hover" class="my-item">
+    <view style="display:inline-flex;">
+      <image class="iconfont wehping left-img" />
+      <text>我的评价</text>
+    </view>
+    <image class="iconfont wemore right-img" />
+  </navigator>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="version">Powered by 即刻:少年初心</view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+</view>

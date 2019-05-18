@@ -1,0 +1,26 @@
+
+<!--map.wxml-->
+<view class='container'>
+  <map id="orderMap" 
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
+        markers="{{markers}}"
+        covers="{{covers}}"
+        show-location>
+    <cover-view>
+      经度：{{longitude_my}}
+    </cover-view>
+     <cover-view>
+      纬度：{{latitude_my}}
+    </cover-view>
+    <cover-view>
+      缩放值：{{scale}}
+    </cover-view>
+  </map>
+  <cover-view class="btn-container">
+      <button class="btn-item"  bindtap="getCenterLocation">获取位置</button>
+      <button class="btn-item"  bindtap="moveToLocation">我的位置</button>
+      <button class="btn-item"  bindtap="translateMarker">移动标注</button>
+      <button class="btn-item"  bindtap="includePoints">缩放视野查看店铺和我的位置</button>
+  </cover-view>
+</view>
