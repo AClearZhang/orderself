@@ -8,6 +8,12 @@ from application import app,db
 python manager.py runjob -m pay/index
 '''
 
+
+'''
+   下的订单 半个小时之外的：-8的代付款的
+   查询出来  将状态职位0
+'''
+
 class JobTask():
 	def __init__(self):
 		pass

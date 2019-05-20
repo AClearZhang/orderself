@@ -1,9 +1,10 @@
 Job 列表
 ======
 * 队列Job
-
-        * * * * * { . ~/.bash_jobs && cd /data/www/Order && python manager.py runjob -m queue/index ;} >> /data/www/logs/queue_list.`date +\%Y_\%m_\%d`.log 2>&1
-        * * * * * { . ~/.bash_jobs && cd /data/www/Order && python manager.py runjob -m pay/index ;} >> /data/www/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1
-        1 2 * * { . ~/.bash_jobs && cd /data/www/Order && python manager.py runjob -m stat/daily -a member ;} >> /data/www/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1
-        2 2 * * * { . ~/.bash_jobs && cd /data/www/Order && python manager.py runjob -m stat/daily -a food ;} >> /data/www/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1
-        3 2 * * * { . ~/.bash_jobs && cd /data/www/Order && python manager.py runjob -m stat/daily -a site ;} >> /data/www/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1
+                 <!-- 每一分 都去跑——要么发送消息模板，要么取消订单 -->
+        * * * * * { . ~/.bash_jobs && cd /www/wwwproject/orderself && python manager.py runjob -m queue/index ;} >> /www/wwwproject/logs/queue_list.`date +\%Y_\%m_\%d`.log 2>&1
+        
+        * * * * * { . ~/.bash_jobs && cd /www/wwwproject/orderself && python manager.py runjob -m pay/index ;} >> /www/wwwproject/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1
+        1 2 * * * { . ~/.bash_jobs && cd /www/wwwproject/orderself && python manager.py runjob -m stat/daily -a member ;} >> /www/wwwproject/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1
+        2 2 * * * { . ~/.bash_jobs && cd /www/wwwproject/orderself && python manager.py runjob -m stat/daily -a food ;} >> /www/wwwproject/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1
+        3 2 * * * { . ~/.bash_jobs && cd /www/wwwproject/orderself && python manager.py runjob -m stat/daily -a site ;} >> /www/wwwproject/logs/pay_index.`date +\%Y_\%m_\%d`.log 2>&1

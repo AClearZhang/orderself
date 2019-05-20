@@ -10,7 +10,7 @@
             </view>
             <view class="right-text">
                 <view class="status red">{{info.status_desc}}</view>
-                <view class="des">请于{{ info.deadline }}前付款，请勿超时</view>
+                <view class="des">请于{{ info.deadline }}前付款，请勿超时.超时订单将自动关闭.</view>
             </view>
         </view>
         <block>

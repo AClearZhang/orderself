@@ -32,7 +32,7 @@ App({
         userInfo: null,
         version: "1.0",
         shopName: "中华一番·少年心气菜馆",
-        domain: "http://192.168.0.103:8999/api",
+        domain: "https://order.jiahaozhang.net/api",
         payDetailPageID: "16",
         payCodeImage: [],
         ww: 0,

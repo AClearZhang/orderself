@@ -13,27 +13,6 @@ var app = getApp();
 
 Page({
   data: {
-    // logs: [],
-    // tabs: ["今日菜单", "我的订单"],
-    // activeIndex: 0,
-    // sliderOffset: 0,
-    // sliderLeft: 0,
-    // sliderWidth: 0.5,
-    // // 右菜单
-    // menu_list: [],
-    // // 左菜单
-    // foodList: [], //展示菜品
-    // allFoodList: [], //所有获取到的菜品
-    // //我的订单列表
-    // orderList: [],
-    // // 购物车
-    // cartList: [],
-    // hasList: false, // 列表是否有数据
-    // totalPrice: 0, // 总价，初始为0
-    // totalNum: 0, //总数，初始为0
-
-    // // 左右两侧菜单的初始显示次序
-    // curNav: 0,
 
     //新增
     categories: [],
