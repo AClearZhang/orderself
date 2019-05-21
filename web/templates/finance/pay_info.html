@@ -8,6 +8,7 @@
 				<!-- 订单的详情页面 —— 供商家进行 -7进行审核；结束账单 -->
                 {% if pay_order_info.status == 1 and pay_order_info.express_status == -7 %}
 					<a class="btn btn-outline btn-primary pull-right express_send" href="javascript:void(0);" data="{{ pay_order_info.id }}">确认到账</a>
+					<a class="btn btn-outline btn-primary pull-right express_cancel" href="javascript:void(0);" data="{{ pay_order_info.id }}">取消订单</a>
 				{% endif %}
                 <div class="m-b-md">
 					<h2>订单信息</h2>

@@ -13,7 +13,7 @@
         <view class="a-order" wx:for="{{order_list}}" wx:key="{{index}}" wx:for-item="item">
             <view class="order-date"  data-id="{{item.order_sn}}" bindtap="orderDetail">
                 <view class="date-box">下单时间：{{item.date}}</view>
-                <view class="status {{(item.status==-1 || item.status==4) ? '':'red'}}">{{item.status_desc}}</view>
+                <view class="status {{(item.status==-1 || item.status==4) ? '':'red'}}">{{item.status_desc}} {{item.status==-6? item.take_number :''}}</view>
             </view>
             <view class="goods-info"  data-id="{{item.order_sn}}"  bindtap="orderDetail">
                 <view class="goods-des">
@@ -33,7 +33,7 @@
                 <view class="btn cancel-btn" bindtap="orderCancel" data-id="{{item.order_sn}}" wx:if="{{item.status==-8}}">取消订单</view>
                 <view class="btn topay-btn" bindtap="toPay" data-id="{{item.order_sn}}" wx:if="{{item.status==-8}}">马上付款</view>
 
-                <view class="btn topay-btn" bindtap="orderConfirm" data-id="{{item.order_sn}}" wx:if="{{item.status==-6}}">确认收货</view>
+                <view class="btn topay-btn" bindtap="orderConfirm" data-id="{{item.order_sn}}" wx:if="{{item.status==-6}}">确认取餐</view>
                 <view class="btn topay-btn" bindtap="orderComment" data-id="{{item.order_sn}}" wx:if="{{item.status==-5}}">美食评价</view>
             </view>  
         </view>

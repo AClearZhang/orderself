@@ -8,6 +8,7 @@ from common.models.pay.PayOrderItem import PayOrderItem
 from application import  app,db
 from common.libs.UrlManager import UrlManager
 from common.libs.Helper import iPagination,selectFilterObj,getDictListFilterField,getDictFilterField,getCurrentDate
+from common.libs.pay.PayService import PayService
 from sqlalchemy import func
 import json
 route_finance = Blueprint( 'finance_page',__name__ )
@@ -181,22 +182,35 @@ def set():
 def orderOps():
     resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
     req = request.values
-    id = req['id'] if 'id' in req else 0
+    order_id = req['id'] if 'id' in req else 0
     act = req['act'] if 'act' in req else ''
 
-    pay_order_info = PayOrder.query.filter_by( id = id ).first()
-    if not pay_order_info:
+    # pay_order_info = PayOrder.query.filter_by( id = id ).first()
+    # if not pay_order_info:
+    #     resp['code'] = -1
+    #     resp['msg'] = "系统繁忙。请稍后再试~~"
+    #     return jsonify(resp)
+
+    app.logger.info("test 1")
+    target = PayService()
+    if act == "express":
+        # 确认到账——进行sale和成功回调
+        # pay_order_info.express_status = -6  # -6
+        # pay_order_info.updated_time = getCurrentDate()
+        # db.session.add( pay_order_info )
+
+        # 修改新增售卖记录 和 销售量
+        result = target.addPayCallbackData( pay_order_id=order_id, type='pay', data='审核确认' )
+        app.logger.info("result is1 {}".format( result ))
+
+    if act == "cancel":
+        # 取消订单——归还库存
+        result = target.addPayCallbackData( pay_order_id=order_id, type='cancel', data='审核取消' )
+    if not result:
+        app.logger.info("result is 2{}".format( result ))
+        
         resp['code'] = -1
         resp['msg'] = "系统繁忙。请稍后再试~~"
         return jsonify(resp)
-
-
-    if act == "express":
-        # 修改，后台商家 确认审核之后.直接让用户 进入到评价状态
-        # 修改
-        pay_order_info.express_status = 1  # -6
-        pay_order_info.updated_time = getCurrentDate()
-        db.session.add( pay_order_info )
-        db.session.commit()
 
     return jsonify(resp)

@@ -2,7 +2,7 @@ var app = getApp();
 Page({
     data: {
         order_list: [],
-        statusType: ["待付款", "待审核", "待收货", "待评价", "已完成","已关闭"],
+        statusType: ["待付款", "待审核", "取餐号", "待评价", "已完成","已关闭"],
         status:[ "-8","-7","-6","-5","1","0" ],
         currentType: 0,
         tabClass: ["", "", "", "", "", ""]
@@ -55,7 +55,7 @@ Page({
                 });
                
             },
-            error: function(err){
+            fail: function(err){
                 app.alert({ 'title':"API请求失败", 'content': err });
             }
         });
@@ -88,16 +88,16 @@ Page({
                 });
 
             },
-            error: function(err){
+            fail: function(err){
                 app.alert({ 'title':"API请求失败", 'content': err });
             }
         });
 
 
     },
-    // 确认收货
+    // 确认取餐
     orderConfirm:function( e ){
-        this.orderOps( e.currentTarget.dataset.id,"confirm","确定收到？" );
+        this.orderOps( e.currentTarget.dataset.id,"confirm","确定取餐？" );
     },
     // 确认评论
     orderComment:function( e ){

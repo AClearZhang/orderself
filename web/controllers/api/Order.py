@@ -158,8 +158,11 @@ def orderPay():
     # 将微信回调的结果保存在记录表
     # pay_order_callback
     # 在第一次付款成功的时候 回调
-    if result:
-        target_pay.addPayCallbackData( pay_order_id=pay_order_info.id )
+    if not result:
+        resp['code'] = -1
+        resp['msg'] = "系统繁忙请稍候再试."
+        return jsonify( resp )
+        # target_pay.addPayCallbackData( pay_order_id=pay_order_info.id )
     
     return jsonify( resp )
 
@@ -176,8 +179,9 @@ def orderOps():
         resp['code'] = -1
         resp['msg'] = "系统繁忙。请稍后再试~~"
         return jsonify(resp)
+    
+    target_pay = PayService( )
     if act == "cancel":
-        target_pay = PayService( )
         ret = target_pay.closeOrder( pay_order_id=pay_order_info.id )
         if not ret:
             resp['code'] = -1
@@ -185,10 +189,11 @@ def orderOps():
             return jsonify(resp)
         
     elif act == "confirm":
-        pay_order_info.express_status = 1
-        pay_order_info.updated_time = getCurrentDate()
-        db.session.add( pay_order_info )
-        db.session.commit()
+        ret = target_pay.confirmOrder( pay_order_id=pay_order_info.id ) 
+        if not ret:
+            resp['code'] = -1
+            resp['msg'] = "系统繁忙。请稍后再试~~"
+            return jsonify(resp)
 
     return jsonify(resp)
 
