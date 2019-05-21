@@ -109,8 +109,7 @@ class PayService():
                 tmp_pay_item.updated_time = tmp_pay_item.created_time = getCurrentDate()
                 db.session.add(tmp_pay_item)
                 # 库存处理，减少库存
-                FoodService.setStockChangeLog(
-                    item['id'],  -item['number'], "在线购买")
+                FoodService.setStockChangeLog(item['id'],  -item['number'], "在线购买")
 
             db.session.commit()
             # 下单成功，返回相应数据
@@ -158,7 +157,7 @@ class PayService():
             id=pay_order_id, status=-8).first()
         if not pay_order_info:
             return False
-
+ 
         pay_order_items = PayOrderItem.query.filter_by(
             pay_order_id=pay_order_id).all()
         if pay_order_items:
@@ -180,11 +179,27 @@ class PayService():
         return True
 
     '''
+        确认取餐
+    '''
+    def confirmOrder( self, pay_order_id=0 ):
+        if pay_order_id < 1:
+            return False
+        pay_order_info = PayOrder.query.filter_by(
+            id=pay_order_id, express_status=-6).first()
+        if not pay_order_info:
+            return False
+
+        pay_order_info.express_status = 1
+        pay_order_info.updated_time = getCurrentDate()
+        db.session.add( pay_order_info )
+        db.session.commit()
+        return True
+ 
+    '''
         平时不要写 非常特定的方法！太局限，不具有 普适性。
         马上付款，付款成功之后的方法调用
         将 pay_order  状态status1  待审核express_status -7
     '''
-
     def orderSuccess(self, pay_order_id=0, params=None):
         try:
             pay_order_info = PayOrder.query.filter_by(id=pay_order_id).first()
@@ -201,16 +216,7 @@ class PayService():
                     pay_order_info.pay_sn = "1"
 
                     # 售卖变更记录： FoodSaleChangeLog
-                    pay_order_items = PayOrderItem.query.filter_by(
-                        pay_order_id=pay_order_id).all()
-                    for order_item in pay_order_items:
-                        tmp_model_sale_log = FoodSaleChangeLog()
-                        tmp_model_sale_log.food_id = order_item.food_id
-                        tmp_model_sale_log.quantity = order_item.quantity
-                        tmp_model_sale_log.price = order_item.price
-                        tmp_model_sale_log.member_id = order_item.member_id
-                        tmp_model_sale_log.created_time = getCurrentDate()
-                        db.session.add(tmp_model_sale_log)
+                    # 去待审核了
 
                 else:
                     num = int(params['pay_sn'])
@@ -246,46 +252,110 @@ class PayService():
     # 包括我们的`pay_data` text NOT NULL COMMENT '支付回调信息',
     #          `refund_data` text NOT NULL COMMENT '退款回调信息',
     #           type：表明是 付款？审核？还是退款？
+    # 后台的 审核付款 或者 取消订单回调
     def addPayCallbackData(self, pay_order_id=0, type='pay', data=''):
-        model_callback = PayOrderCallbackData()
-        model_callback.pay_order_id = pay_order_id
-        if type == "pay":
-            model_callback.pay_data = data
-            model_callback.refund_data = ''
-        else:
-            model_callback.refund_data = data
-            model_callback.pay_data = ''
+        try:
+            app.logger.info( "enter 1" )
 
-        model_callback.created_time = model_callback.updated_time = getCurrentDate()
-        db.session.add(model_callback)
-        # db.session.commit()
+            if int(pay_order_id) < 1:
+                return False
+            app.logger.info( "enter 11" )
 
-        # 每个月的月底进行统计或者更新
-        # 更新销售总量
-        pay_order_items = PayOrderItem.query.filter_by( pay_order_id=pay_order_id).all()
-        notice_content = []
-        if pay_order_items:
-            date_from = datetime.datetime.now().strftime("%Y-%m-01 00:00:00")
-            date_to = datetime.datetime.now().strftime("%Y-%m-31 23:59:59")
-            for item in pay_order_items:
-                tmp_food_info = Food.query.filter_by(id=item.food_id).first()
-                if not tmp_food_info:
-                    continue
+            pay_order_info = PayOrder.query.filter_by( id = pay_order_id, express_status=-7 ).first()
+            if not pay_order_info:
+                return False
+            pay_order_items = PayOrderItem.query.filter_by( pay_order_id=pay_order_id).all()
+            if not pay_order_items:
+                return False
+            model_callback = PayOrderCallbackData()
+            model_callback.pay_order_id = pay_order_id
+            if type == "pay":
+                app.logger.info( "enter 2" )
 
-                notice_content.append("%s %s份" % (tmp_food_info.name, item.quantity))
+                # `1`
+                # 新增 售卖数量改变sale
+                # pay_order_items = PayOrderItem.query.filter_by(pay_order_id=pay_order_id).all()
+                for order_item in pay_order_items:
+                    tmp_model_sale_log = FoodSaleChangeLog()
+                    tmp_model_sale_log.food_id = order_item.food_id
+                    tmp_model_sale_log.quantity = order_item.quantity
+                    tmp_model_sale_log.price = order_item.price
+                    tmp_model_sale_log.member_id = order_item.member_id
+                    tmp_model_sale_log.created_time = getCurrentDate()
+                    db.session.add(tmp_model_sale_log)
+                    db.session.commit()
 
-                # 当月数量
-                # query( 0, 1) 当中指针为0 和 1的两个对象。
-                tmp_stat_info = db.session.query(FoodSaleChangeLog, func.sum(FoodSaleChangeLog.quantity).label("total")) \
-                    .filter(FoodSaleChangeLog.food_id == item.food_id)\
-                    .filter(FoodSaleChangeLog.created_time >= date_from, FoodSaleChangeLog.created_time <= date_to).first()
+                # `2`
+                # 每个月的月底进行统计或者更新
+                # 更新销售总量
+                notice_content = []
+                if pay_order_items:
+                    date_from = datetime.datetime.now().strftime("%Y-%m-01 00:00:00")
+                    date_to = datetime.datetime.now().strftime("%Y-%m-31 23:59:59")
+                    for item in pay_order_items:
+                        tmp_food_info = Food.query.filter_by(id=item.food_id).first()
+                        if not tmp_food_info:
+                            continue
 
-                app.logger.info("当月数量：tmp_stat_info:{0}".format(tmp_stat_info) )
-                tmp_month_count = tmp_stat_info[1] if tmp_stat_info[1] else 0
-                tmp_food_info.total_count += 1
-                tmp_food_info.month_count = tmp_month_count
-                db.session.add(tmp_food_info)
-                
+                        notice_content.append("%s %s份" % (tmp_food_info.name, item.quantity))
+
+                        # 当月数量
+                        # query( 0, 1) 当中指针为0 和 1的两个对象。
+                        tmp_stat_info = db.session.query(FoodSaleChangeLog, func.sum(FoodSaleChangeLog.quantity).label("total")) \
+                            .filter(FoodSaleChangeLog.food_id == item.food_id)\
+                            .filter(FoodSaleChangeLog.created_time >= date_from, FoodSaleChangeLog.created_time <= date_to).first()
+
+                        app.logger.info("当月数量：tmp_stat_info:{0}".format(tmp_stat_info) )
+                        tmp_month_count = tmp_stat_info[1] if tmp_stat_info[1] else 0
+                        tmp_food_info.total_count += 1
+                        tmp_food_info.month_count = tmp_month_count
+                        db.session.add(tmp_food_info)
+                app.logger.info("enter 3" )
+
+                # `3`
+                # 设置为取餐号
+                pay_order_info.express_status = -6  # -6
+                pay_order_info.updated_time = getCurrentDate()
+                db.session.add( pay_order_info )
+
+                model_callback.pay_data = data
+                model_callback.refund_data = ''
+            elif type == "cancel":
+                # `1` 归还库存
+                if pay_order_items:
+                    # 需要归还库存
+                    for item in pay_order_items:
+                        tmp_food_info = Food.query.filter_by(id=item.food_id).first()
+                        if tmp_food_info:
+                            tmp_food_info.stock = tmp_food_info.stock + item.quantity
+                            tmp_food_info.updated_time = getCurrentDate()
+                            db.session.add(tmp_food_info)
+                            db.session.commit()
+                            FoodService.setStockChangeLog(item.food_id, item.quantity, "订单取消")
+                # `2` 变更状态
+                pay_order_info.status = 0
+                pay_order_info.express_status = 0
+                pay_order_info.updated_time = getCurrentDate()
+                db.session.add(pay_order_info)
+                db.session.commit()
+               
+
+                model_callback.refund_data = data
+                model_callback.pay_data = ''
+            else:
+                db.session.rollback()
+                return False
+
+            model_callback.created_time = model_callback.updated_time = getCurrentDate()
+            db.session.add(model_callback)
+            db.session.commit()
+
+            
+        
+        except Exception as e:
+            db.session.rollback()
+            print("exception is :%s" % e )
+            app.logger.info("exception")
+            return False         
             # 统计end
-        db.session.commit()
         return True
