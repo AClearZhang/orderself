@@ -179,7 +179,7 @@ Page({
             success: function (res) {
                
             },
-            error: function (err) {
+            fail: function (err) {
                 app.alert({
                     'title': "商品删除API 请求失败",
                     'content': err
@@ -216,7 +216,7 @@ Page({
                 });
                 that.setPageData( that.getSaveHide(), that.totalPrice(), that.allSelect(), that.noSelect(), that.data.list);
             },
-            error: function(err){
+            fail: function(err){
                 app.alert({ 'title':"API请求失败", 'content': err });
             }
         });
@@ -238,7 +238,7 @@ Page({
             success: function (res) {
                
             },
-            error: function (err) {
+            fail: function (err) {
                 app.alert({
                     'title': "API请求失败",
                     'content': err
