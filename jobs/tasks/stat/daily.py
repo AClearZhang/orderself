@@ -24,7 +24,7 @@ class JobTask():
         act = params['act'] if 'act' in params else ''
         date = params['param'][0] if params['param'] and len(params['param']) else getFormatDate(format="%Y-%m-%d")
         # app.logger.info( params )
-        # print( params )
+        # app.logger.info( params )
         if not act:
             return
 
@@ -45,7 +45,7 @@ class JobTask():
         elif act == "init":
             self.initSite()
 
-        print("it's over~~")
+        app.logger.info("it's over~~")
         return
 
 
@@ -57,11 +57,11 @@ class JobTask():
         date = params['date']
         date_from = params['date_from']
         date_to = params['date_to']
-        print( "act:{0},from:{1},to:{2}".format( act,date_from,date_to ) )
+        app.logger.info( "act:{0},from:{1},to:{2}".format( act,date_from,date_to ) )
 
         member_list = Member.query.all()
         if not member_list:
-            print( "no member list" )
+            app.logger.info( "no member list" )
             return
 
         for member_info in member_list:
@@ -103,7 +103,7 @@ class JobTask():
         date = params['date']
         date_from = params['date_from']
         date_to = params['date_to']
-        print( "act:{0},from:{1},to:{2}".format( act,date_from,date_to ) )
+        app.logger.info( "act:{0},from:{1},to:{2}".format( act,date_from,date_to ) )
 
         stat_food_list = db.session.query(FoodSaleChangeLog.food_id, func.sum(FoodSaleChangeLog.quantity).label("total_count"),
                          func.sum(FoodSaleChangeLog.price).label("total_pay_money")) \
@@ -111,7 +111,7 @@ class JobTask():
             .group_by( FoodSaleChangeLog.food_id ).all()
 
         if not stat_food_list:
-            print("no data")
+            app.logger.info("no data")
             return
 
         for item in stat_food_list:
@@ -147,7 +147,7 @@ class JobTask():
         date = params['date']
         date_from = params['date_from']
         date_to = params['date_to']
-        print( "act:{0},from:{1},to:{2}".format( act,date_from,date_to ) )
+        app.logger.info( "act:{0},from:{1},to:{2}".format( act,date_from,date_to ) )
 
         stat_pay = db.session.query(func.sum(PayOrder.total_price).label("total_pay_money")) \
             .filter(PayOrder.status == 1) \

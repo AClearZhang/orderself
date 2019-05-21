@@ -13,6 +13,10 @@
 * `uwsgi --ini uwsgi.ini`
 * `uwsgi --stop uwsgi.ini`
 
+## job启用
+* 用途：统计全栈数据 或者 自动结束订单 取餐和 评论
+* 详见 jobs/readme.md
+
 ## flask-sqlacodegen
 * `flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --outfile "common/models/model.py"  --flask`
 * `flask-sqlacodegen 'mysql://root:123456@127.0.0.1/food_db' --tables user --outfile "common/models/user.py"  --flask`
