@@ -4,7 +4,9 @@ from common.models.pay.PayOrder import PayOrder
 from common.models.pay.PayOrderItem import PayOrderItem
 from common.models.pay.PayOrderCallbackData import PayOrderCallbackData   # 支付成功与失败
 from common.models.food.FoodSaleChangeLog import FoodSaleChangeLog
-from common.libs.Helper import getCurrentDate
+from common.models.member.MemberComments import MemberComments
+
+from common.libs.Helper import getCurrentDate, selectFilterObj
 from common.libs.food.FoodService import FoodService
 
 import decimal
@@ -358,4 +360,52 @@ class PayService():
             app.logger.info("exception")
             return False         
             # 统计end
+        return True
+
+
+    '''
+        comments 处理默认好评操作
+        params = {
+            'order_sn'
+            'score'
+            'content'
+            'member_id'
+        }
+    '''
+    def addComments(self, params):
+        try:
+            order_sn = params['order_sn'] if 'order_sn' in params else ''
+            score = params['score'] if 'score' in params else 10
+            content = params['content'] if 'content' in params else ''
+            member_id = params['member_id'] if 'member_id' in params else 0
+            print("member_id is:{0}".format( member_id ) )
+
+            pay_order_info = PayOrder.query.filter_by( member_id=member_id, order_sn = order_sn).first()
+            if not pay_order_info:
+                return False
+
+            if pay_order_info.comment_status:
+                return True
+
+            pay_order_items = PayOrderItem.query.filter_by( pay_order_id = pay_order_info.id ).all()
+            food_ids = selectFilterObj( pay_order_items,"food_id" )
+            tmp_food_ids_str = '_'.join(str(s) for s in food_ids if s not in [None])
+            model_comment = MemberComments()
+            model_comment.food_ids = "_%s_"%tmp_food_ids_str
+            model_comment.member_id = pay_order_info.member_id
+            model_comment.pay_order_id = pay_order_info.id
+            model_comment.score = score
+            model_comment.content = content
+            db.session.add( model_comment )
+
+            pay_order_info.comment_status = 1
+            pay_order_info.updated_time = getCurrentDate()
+            db.session.add( pay_order_info )
+            db.session.commit()
+
+        except Exception as e:
+            db.session.rollback()
+            print("exception is :%s" % e )
+            app.logger.info("exception")
+            return False        
         return True
