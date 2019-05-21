@@ -7,7 +7,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ENCODING = "utf8mb4"
 
 APP = {
-    'domain':'http://order.jiahaozhang.net'
+    'domain':'https://order.jiahaozhang.net'
 }
 
 RELEASE_VERSION="20190518001"
