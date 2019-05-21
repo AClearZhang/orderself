@@ -3,18 +3,18 @@
 <view class="container">
   <!--轮播图-->
   <view class="swiper-container">
-    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-dots="{{indicatorDots}}">
       <block wx:for="{{banners}}" wx:key="id">
         <swiper-item>
           <image bindtap="tapBanner" data-id="{{item.id}}" src="{{item.pic_url}}" class="slide-image" width="750rpx" height="562.5rpx" />
         </swiper-item>
       </block>
     </swiper>
-    <view class="dots">
+    <!-- <view class="dots">
       <block wx:for="{{banners}}" wx:key="unique">
         <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
       </block>
-    </view>
+    </view> -->
   </view>
   <!-- 店铺信息 -->
   <view hover-class="navigator-hover" class="my-item">

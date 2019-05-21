@@ -8,7 +8,6 @@ Page({
         interval: 3000,
         duration: 1000,
         loadingHidden: false, // loading
-        swiperCurrent: 0,
         categories: [],
         activeCategoryId: 0,
         goods: [],
@@ -16,7 +15,9 @@ Page({
         loadingMoreHidden: true,        // 显示哥是否有底线的内容
         searchInput: '',
         p: 1,
-        processing: false 
+        processing: false,
+        indicatorDots: true,
+        // swiperCurrent: 0,   //bindchange  ignore
     },
     onLoad: function () {
         var that = this;
@@ -87,7 +88,7 @@ Page({
                 that.getFoodList();
 
             },
-            error: function(err){
+            fail: function(err){
                 app.alert({ 'title':"API请求失败", 'content': err });
             }
         });
@@ -166,7 +167,7 @@ Page({
 
 
             },
-            error: function(err){
+            fail: function(err){
                 app.alert({ 'title':"API请求失败", 'content': err });
             }
         })

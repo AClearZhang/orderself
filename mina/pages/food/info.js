@@ -92,7 +92,7 @@ Page({
                     hideShopPopup: true                  // 隐藏出现的弹窗
                });
             },
-            error: function (err) {
+            fail: function (err) {
                 app.alert({
                     'title': "API请求失败",
                     'content': err
@@ -185,7 +185,7 @@ Page({
                 WxParse.wxParse('article', 'html', that.data.info.summary, that, 5);
 
             },
-            error: function (err) {
+            fail: function (err) {
                 app.alert({
                     'title': "API请求失败",
                     'content': err
@@ -223,7 +223,7 @@ Page({
                         }
         
                     },
-                    error: function (err) {
+                    fail: function (err) {
                         app.alert({
                             'title': "API请求失败",
                             'content': err
