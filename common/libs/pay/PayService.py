@@ -254,6 +254,7 @@ class PayService():
     # 包括我们的`pay_data` text NOT NULL COMMENT '支付回调信息',
     #          `refund_data` text NOT NULL COMMENT '退款回调信息',
     #           type：表明是 付款？审核？还是退款？
+    # 上面没有！
     # 后台的 审核付款 或者 取消订单回调
     def addPayCallbackData(self, pay_order_id=0, type='pay', data=''):
         try:

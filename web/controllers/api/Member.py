@@ -9,6 +9,7 @@ from application import app, db
 import requests, json
 from common.models.member.Member import Member
 from common.models.member.OauthMemberBind import OauthMemberBind
+from common.models.pay.PayOrder import PayOrder
 from common.libs.Helper import getCurrentDate
 from common.libs.member.MemberService import MemberService
 from common.models.food.WxShareHistory import WxShareHistory
@@ -160,6 +161,21 @@ def memberInfo():
         "avatar_url": member_info.avatar,
         "sex": member_info.sex,
     }
+
+    ## 新增界面显示详细信息
+    # 取出payorder表进行 展示
+    order_info = {}
+
+    order_info['dfk'] = PayOrder.query.filter_by( member_id = member_info.id ).filter( PayOrder.status == -8 ).count()
+    order_info['dsh'] = PayOrder.query.filter_by( member_id = member_info.id ).\
+                            filter( PayOrder.status == 1, PayOrder.express_status == -7, PayOrder.comment_status == 0  ).count()
+    order_info['dqc'] = PayOrder.query.filter_by( member_id = member_info.id ).\
+                            filter( PayOrder.status == 1, PayOrder.express_status == -6, PayOrder.comment_status == 0  ).count()
+    order_info['dpj'] = PayOrder.query.filter_by( member_id = member_info.id ).\
+                            filter( PayOrder.status == 1, PayOrder.express_status == 1, PayOrder.comment_status == 0 ).count()
+                            
+    resp['data']['order_info'] = order_info
+    # 新增结束
 
     return jsonify( resp )
 
