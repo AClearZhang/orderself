@@ -44,6 +44,10 @@ Page({
       processing: false
     });
     that.getFoodCatList();
+    
+    wx.onMemoryWarning(function () {
+      app.console( "onMemoryWarningReceive" )
+    });
   },
   scrollViewLower: function( e ){
     var that = this;

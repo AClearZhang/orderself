@@ -1,12 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+
+    "pages/my/index",
+
     "pages/food/map",
     "pages/cart/index",
     "pages/food/index",
     "pages/menu/index",
     "pages/food/info",
-    "pages/my/index",
     "pages/my/order_list",
     "pages/my/order_info",
     "pages/my/addressList",

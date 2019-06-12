@@ -16,7 +16,7 @@
         <!--右侧栏  -->
         <scroll-view scroll-y class="right-cont"  bindscrolltolower="scrollViewLower" >
   
-            <view class="weui-panel__bd mb_bottom" wx:for="{{goods}}" bindtap="toDetailsTap" data-id="{{ item.id }}">
+            <view class="weui-panel__bd mb_bottom" wx:for="{{goods}}" wx:key="key" bindtap="toDetailsTap" data-id="{{ item.id }}">
               <view class=" weui-media-box_appmsg bc_white mT" hover-class="none">
                 <view class="weui-media-box__hd  img_box ">
                       <!--图片链接  -->

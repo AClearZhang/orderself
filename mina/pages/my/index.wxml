@@ -1,5 +1,6 @@
 <view class="container">
   <view class="userinfo">
+    <image class='img-bj' wx:if="{{ user_info && user_info.avatar_url }}" src="{{ user_info.avatar_url }}" mode="aspectFill"></image>
     <view class="box-shadow">
       <image wx:if="{{user_info && user_info.avatar_url}}" class="userinfo-avatar" src="{{ user_info.avatar_url }}" background-size="cover"></image>
     </view>
@@ -10,10 +11,67 @@
     </view>
   </view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <navigator url="/pages/my/order_list" hover-class="navigator-hover" class="my-item">
+   <!--订单详情-->
+  <view class="qbdd">
+    <span class="c33">全部订单</span>
+    <navigator class="c99" url="/pages/my/order_list?current=0" hover-class="none">查看全部订单 ></navigator>
+  </view>
+  <view class="sc">
+    <navigator class="df_1" url="/pages/my/order_list?current=0" hover-class="none">
+      <view>
+        <image src="/images/order/icon-ddfk.png"></image>
+      </view>
+      <text class="font_12">待付款
+        <text style="color:red">({{order_info.dfk}})</text>
+      </text>
+    </navigator>
+
+    <navigator class="df_1" url="/pages/my/order_list?current=1" hover-class="none">
+      <view>
+        <image src="/images/order/icon-ddfh.png"></image>
+      </view>
+      <text class="font_12">待审核
+        <text style="color:red">({{order_info.dsh}})</text>
+      </text>
+    </navigator>
+
+    <navigator class="df_1" url="/pages/my/order_list?current=2" hover-class="none">
+      <view>
+        <image src="/images/order/icon-ddsh.png"></image>
+      </view>
+      <text class="font_12">取餐码
+        <text style="color:red">({{order_info.dqc}})</text>
+      </text>
+    </navigator>
+    <!-- <navigator class="df_1" url="../user/dingdan?currentTab=3&otype=3" hover-class="none">
+      <view>
+        <image src="/images/dpl.png"></image>
+      </view>
+      <text class="font_12">待评价<text style="color:red">({{orderInfo.dpj}})</text></text>
+    </navigator> -->
+    <navigator class="df_1" url="/pages/my/order_list?current=3" hover-class="none">
+      <view>
+        <image src="/images/order/icon-jycg.png"></image>
+      </view>
+      <text class="font_12">待评价
+        <text style="color:red">({{order_info.dpj}})</text>
+      </text>
+    </navigator>
+  </view>
+  <!-- 测试添加结束 -->
+  
+  <!-- <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <navigator url="/pages/my/order_list?current=0" hover-class="navigator-hover" class="my-item">
     <view style="display:inline-flex;">
       <image class="iconfont wedingdan left-img" />
       <text>我的订单</text>
+    </view>
+    <image class="iconfont wemore right-img" />
+  </navigator> -->
+  <navigator url="/pages/my/order_list?current=2" hover-class="navigator-hover" class="my-item">
+    <view style="display:inline-flex;">
+      <image class="iconfont wepeisong left-img" />
+      <text>取餐码</text>
     </view>
     <image class="iconfont wemore right-img" />
   </navigator>

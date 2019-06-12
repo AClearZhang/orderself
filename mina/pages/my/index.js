@@ -2,7 +2,8 @@
 var app = getApp();
 Page({
     data: {
-        user_info: null
+        user_info: null,
+        order_info: null
     },
     onLoad( e ) {
 
@@ -22,7 +23,8 @@ Page({
                     return;
                 }
                 that.setData({
-                   user_info:resp.data.info
+                   user_info:resp.data.info,
+                   order_info: resp.data.order_info,
                 });     
             }
         });

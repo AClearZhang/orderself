@@ -19,8 +19,12 @@ Page({
             url: "/pages/my/order_info?order_sn=" + e.currentTarget.dataset.id
         })
     },
-    onLoad: function (options) {
+    onLoad: function ( e ) {
         // 生命周期函数--监听页面加载
+        var that = this;
+        that.setData({
+            currentType: e.current
+        });
 
     },
     onReady: function () {

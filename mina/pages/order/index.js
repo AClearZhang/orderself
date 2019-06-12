@@ -50,7 +50,7 @@ Page({
                 }
 
                 wx.navigateTo({
-                    url: "/pages/my/order_list"                 // 直接重定向到my界面
+                    url: "/pages/my/order_list?current=0"                 // 直接重定向到my界面
                 });
             }
 

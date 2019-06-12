@@ -15,7 +15,7 @@
         <image class="smalltitle" src="/images/more/confirm-word1.png"></image>
         <!-- 代码优化  根据是否已经绑定了用户 -->
         <view class="confirm-btn" bind:tap='goToIndex' wx:if="{{regFlag == true}}" >
-          <text >走吧，订餐去</text>
+          <text >来点餐吧</text>
         </view>
         <button  class="confirm-btn" open-type="getUserInfo" bind:getuserinfo="login" wx:if="{{ regFlag == false }}">
             授权登录
