@@ -19,6 +19,7 @@ APP = {
 SERVER_PORT = 8999          # 共用的！
 AUTH_COOKIE_NAME = "your auth name"
 
+SEO_TITLE="自助点餐系统"
 # 过滤URL
 IGNORE_URLS = [
     "^/user/login",             # 判断登录，但是如果未登录。也是没问题的
