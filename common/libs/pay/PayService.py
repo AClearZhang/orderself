@@ -184,7 +184,7 @@ class PayService():
         确认取餐
     '''
     def confirmOrder( self, pay_order_id=0 ):
-        if pay_order_id < 1:
+        if int(pay_order_id) < 1:
             return False
         pay_order_info = PayOrder.query.filter_by(
             id=pay_order_id, express_status=-6).first()
@@ -310,7 +310,7 @@ class PayService():
 
                         app.logger.info("当月数量：tmp_stat_info:{0}".format(tmp_stat_info) )
                         tmp_month_count = tmp_stat_info[1] if tmp_stat_info[1] else 0
-                        tmp_food_info.total_count += 1
+                        tmp_food_info.total_count += item.quantity                      # 错误修改
                         tmp_food_info.month_count = tmp_month_count
                         db.session.add(tmp_food_info)
                 app.logger.info("enter 3" )

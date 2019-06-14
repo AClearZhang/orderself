@@ -151,6 +151,7 @@ def memberShare():
 
 '''
     my 获取用户信息
+    取餐码order_sn
 '''
 @route_api.route( '/member/info' )
 def memberInfo():
@@ -174,6 +175,14 @@ def memberInfo():
     order_info['dpj'] = PayOrder.query.filter_by( member_id = member_info.id ).\
                             filter( PayOrder.status == 1, PayOrder.express_status == 1, PayOrder.comment_status == 0 ).count()
                             
+    
+
+    # 新增取餐码 order_sn
+    pay_order_sn = PayOrder.query.filter_by( member_id = member_info.id ).\
+                            filter( PayOrder.status == 1, PayOrder.express_status == -6, PayOrder.comment_status == 0 ).first()
+
+    order_info['order_sn'] =  '' if not pay_order_sn else pay_order_sn.order_sn
+
     resp['data']['order_info'] = order_info
     # 新增结束
 

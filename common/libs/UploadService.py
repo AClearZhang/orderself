@@ -11,8 +11,10 @@ class UploadService():
         resp = { 'code': 200, 'msg': '操作成功~', 'data': {} }
         # 获取文件相关属性  一致？
         filename = secure_filename( file.filename )         # 获取安全的文件名称
-        ext = filename.split(".", 1)[1]
-
+        app.logger.info( "filename is :%s" % filename)
+        ext = filename
+        # ext = filename.split(".", 1)[1]
+        
         # 扩展名是否 一致
         if ext not in config_upload['ext']:
             # 报错

@@ -39,7 +39,7 @@ var member_set_ops = {
                     btn_taget.removeClass("disabled");
                     if( res.code == 200 ){
                         callback = function(){
-                            window.location.href = common_ops.buildUrl("member/index");
+                            window.location.href = common_ops.buildUrl("/member/index");
                         }
                     }
 

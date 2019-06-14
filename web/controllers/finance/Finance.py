@@ -25,9 +25,15 @@ def index():
 
     query = PayOrder.query
 
-    # 状态值筛选，待支付 已支付 已关闭
+    # 状态值筛选，已支付 已关闭
     if 'status' in req and int( req['status'] ) > -1 :
         query = query.filter( PayOrder.status == int( req['status'] ) )
+    # -8待付款 
+    if 'status' in req and int( req['status'] ) == -8:
+        query = query.filter( PayOrder.status == int( req['status'] ) )
+    # -7待审核 -6取餐码
+    if 'status' in req and int( req['status'] ) >= -7 and int( req['status'] ) <= -6 :
+        query = query.filter( PayOrder.express_status == int( req['status'] ) )
 
     # 分页
     page_params = {
@@ -193,6 +199,11 @@ def orderOps():
 
     app.logger.info("test 1")
     target = PayService()
+    
+    if act == "take":
+        # 确认取餐
+        result = target.confirmOrder( pay_order_id=order_id )
+
     if act == "express":
         # 确认到账——进行sale和成功回调
         # pay_order_info.express_status = -6  # -6

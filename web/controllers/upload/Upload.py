@@ -67,7 +67,8 @@ def uploadImage():
     # 返回json参数
     resp = { 'state':'SUCCESS', 'url':'', 'title':'', 'original':'' }
     file_target = request.files                 # 'upfile', <FileStorage : 'food.jpg'('image/jpeg')>
-    # app.logger.info( file_target ) 
+    app.logger.info("file_taget is:" ) 
+    app.logger.info(file_target ) 
     upfile = file_target['upfile'] if 'upfile' in file_target else None
     if upfile is None:
         resp['status'] = "上传失败"

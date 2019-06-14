@@ -166,6 +166,7 @@ def myOrderInfo():
 
     tmp_deadline = pay_order_info.created_time + datetime.timedelta(minutes=30)
     info = {
+        "id": pay_order_info.id,
         "order_sn":pay_order_info.order_sn,
         "status":pay_order_info.pay_status,
         "status_desc":pay_order_info.status_desc,

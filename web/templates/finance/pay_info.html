@@ -10,6 +10,10 @@
 					<a class="btn btn-outline btn-primary pull-right express_send" href="javascript:void(0);" data="{{ pay_order_info.id }}">确认到账</a>
 					<a class="btn btn-outline btn-primary pull-right express_cancel" href="javascript:void(0);" data="{{ pay_order_info.id }}">取消订单</a>
 				{% endif %}
+				<!-- 取餐码 -->
+				{% if pay_order_info.status == 1 and pay_order_info.express_status == -6 %}
+					<a class="btn btn-outline btn-primary pull-right express_take" href="javascript:void(0);" data="{{ pay_order_info.id }}">确认取餐</a>
+				{% endif %}
                 <div class="m-b-md">
 					<h2>订单信息</h2>
 				</div>

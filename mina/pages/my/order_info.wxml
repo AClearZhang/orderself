@@ -1,4 +1,8 @@
 <view class="container">
+    <!-- 生成取餐码 -->
+    <view wx:if="{{info.status== -6}}" class="take-code">
+            <canvas bindtap="previewImg" hidden="{{canvasHidden}}" style="width: 686rpx;height: 686rpx;background:#f1f1f1;" canvas-id="mycanvas"/>
+    </view>
     <view class="sec-wrap">
         <view class="order-status">
             <view class="icon-box">
@@ -10,7 +14,7 @@
             </view>
             <view class="right-text">
                 <view class="status red">{{info.status_desc}}</view>
-                <view class="des">请于{{ info.deadline }}前付款，请勿超时.超时订单将自动关闭.</view>
+                <view class="des">请于{{ info.deadline }}前完成，请勿超时.超时订单将自动关闭.</view>
             </view>
         </view>
         <block>

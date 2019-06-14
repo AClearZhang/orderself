@@ -6,7 +6,7 @@
 ### /config/base_setting.py
 ```python
 # -*- coding: utf-8 -*-
-# 此处为共用的，  数据库费巩勇
+# 此处为共用的，  数据库设置
 DEBUG = False
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_DATABASE_URI = 'mysql://root:your key@127.0.0.1/food_db'

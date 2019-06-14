@@ -60,5 +60,8 @@
 </div>
 {% endblock %}
 {% block js %}
+<script language="javascript">  
+        setTimeout("self.location.reload();",30000);  
+</script>  
 <script src="{{ buildStaticUrl('/js/finance/index.js') }}"></script>
 {% endblock %}
