@@ -199,41 +199,53 @@ Page({
      * 
      * 注意此处是 前端 open-type share 直接触发——onShareAppMessage的.
     */
-    onShareAppMessage: function() {
+    onShareAppMessage: function(res) {
         var that = this;
+        //新增.
+        if( res.from == 'button'  ){
+            app.console( "当前转发目标：" + res.target );
+            wx.request({
+                url: app.buildUrl("/member/share"),
+                header: app.getRequestHeader(),
+                method: 'POST',                         
+                data: {
+                    url: utils.getCurrentPageUrlWithArgs()
+                },
+                success: function (res) {
+                    var resp = res.data;
+                    if (resp.code != 200) {
+                        app.alert({
+                            "content": resp.msg
+                        });
+                        return;
+                    }
+    
+                },
+                fail: function (err) {
+                    app.alert({
+                        'title': "API请求失败",
+                        'content': err
+                    });
+                }
+            });
+        }
+
         return {
             title: that.data.info.name,
-            path: '/pages/food/info?id=' + that.data.info.id,               // ？？？
-            success: function() {
-                // 转发成功  // 写入 记录转发次数
-                wx.request({
-                    url: app.buildUrl("/member/share"),
-                    header: app.getRequestHeader(),
-                    method: 'POST',                         // 因为要写入数据库
-                    data: {
-                        url: utils.getCurrentPageUrlWithArgs()
-                    },
-                    success: function (res) {
-                        var resp = res.data;
-                        if (resp.code != 200) {
-                            app.alert({
-                                "content": resp.msg
-                            });
-                            return;
-                        }
-        
-                    },
-                    fail: function (err) {
-                        app.alert({
-                            'title': "API请求失败",
-                            'content': err
-                        });
-                    }
-                });
-            },
-            fail: function() {
-                //转发失败
-            }
+            path: '/pages/food/info?id=' + that.data.info.id,  
+                //10月10号 之后去掉了succes接口            
+            // success: function() {
+            //     // 转发成功  // 写入 记录转发次数
+               
+            // },
+            // fail: function() {
+            //     //转发失败
+            //     app.console("分享失败");
+            // },
+            // complete: function(){
+            // // 转发结束之后的回调（转发成不成功都会执行）
+            //     app.console("转发 complete.")；
+            // }
         }
     },
     getComments:function(){

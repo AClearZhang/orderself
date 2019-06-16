@@ -77,8 +77,8 @@ class JobTask():
             tmp_stat_pay =  db.session.query( func.sum(PayOrder.total_price).label("total_pay_money")) \
                     .filter( PayOrder.member_id  == member_info.id ,PayOrder.status == 1 )\
                     .filter( PayOrder.created_time >= date_from,PayOrder.created_time <= date_to ).first()
-            tmp_stat_share_count = WxShareHistory.query.filter( PayOrder.member_id  == member_info.id  )\
-                    .filter( PayOrder.created_time >= date_from,PayOrder.created_time <= date_to ).count()
+            tmp_stat_share_count = WxShareHistory.query.filter( WxShareHistory.member_id  == member_info.id  )\
+                    .filter( WxShareHistory.created_time >= date_from,WxShareHistory.created_time <= date_to ).count()
 
             tmp_model_stat_member.total_shared_count = tmp_stat_share_count
             tmp_model_stat_member.total_pay_money = tmp_stat_pay[ 0 ] if tmp_stat_pay[ 0 ] else 0.00

@@ -198,7 +198,7 @@ def share():
     list = query.order_by(StatDailySite.id.desc()).offset(offset).limit(app.config['PAGE_SIZE']).all()
     resp_data['list'] = list
     resp_data['pages'] = pages
-    resp_data['current'] = 'food'
+    resp_data['current'] = 'share'
     resp_data['search_con'] = {
         'date_from': date_from,
         'date_to': date_to
